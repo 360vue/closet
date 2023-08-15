@@ -5,10 +5,11 @@
  "layout": "absolute",
  "id": "rootPlayer",
  "children": [
-  "this.MainViewer"
+  "this.MainViewer",
+  "this.IconButton_E92A07E1_F928_EDBA_41D1_EF20B01376B8"
  ],
  "scrollBarVisible": "rollOver",
- "start": "this.init()",
+ "start": "this.init(); if(!this.get('fullscreenAvailable')) { [this.IconButton_E92A07E1_F928_EDBA_41D1_EF20B01376B8].forEach(function(component) { component.set('visible', false); }) }",
  "overflow": "visible",
  "width": "100%",
  "scrollBarMargin": 2,
@@ -59,15 +60,6 @@
  "class": "PanoramaCamera"
 },
 {
- "class": "PanoramaPlayer",
- "displayPlaybackBar": true,
- "viewerArea": "this.MainViewer",
- "gyroscopeVerticalDraggingEnabled": true,
- "id": "MainViewerPanoramaPlayer",
- "touchControlMode": "drag_rotation",
- "mouseControlMode": "drag_rotation"
-},
-{
  "items": [
   {
    "media": "this.panorama_F27931F5_F918_A585_41CF_B01C4CC583DF",
@@ -79,6 +71,15 @@
  ],
  "id": "mainPlayList",
  "class": "PlayList"
+},
+{
+ "class": "PanoramaPlayer",
+ "displayPlaybackBar": true,
+ "viewerArea": "this.MainViewer",
+ "gyroscopeVerticalDraggingEnabled": true,
+ "id": "MainViewerPanoramaPlayer",
+ "touchControlMode": "drag_rotation",
+ "mouseControlMode": "drag_rotation"
 },
 {
  "frames": [
@@ -483,6 +484,61 @@
  "toolTipFontWeight": "normal",
  "playbackBarProgressBorderSize": 0,
  "playbackBarRight": 0
+},
+{
+ "horizontalAlign": "center",
+ "toolTipBorderSize": 1,
+ "maxHeight": 128,
+ "maxWidth": 128,
+ "id": "IconButton_E92A07E1_F928_EDBA_41D1_EF20B01376B8",
+ "backgroundOpacity": 0,
+ "toolTipDisplayTime": 600,
+ "width": 55,
+ "toolTipPaddingTop": 4,
+ "toolTipShadowOpacity": 1,
+ "right": "0.66%",
+ "toolTipPaddingLeft": 6,
+ "verticalAlign": "middle",
+ "class": "IconButton",
+ "toolTipBorderRadius": 3,
+ "paddingRight": 0,
+ "toolTipFontStyle": "normal",
+ "paddingLeft": 0,
+ "borderRadius": 0,
+ "minHeight": 1,
+ "toolTipFontFamily": "Arial",
+ "propagateClick": false,
+ "toolTipTextShadowOpacity": 0,
+ "top": "1.68%",
+ "toolTip": "Fullscreen",
+ "toolTipShadowVerticalLength": 0,
+ "height": 40,
+ "toolTipBorderColor": "#767676",
+ "minWidth": 1,
+ "mode": "toggle",
+ "toolTipShadowHorizontalLength": 0,
+ "toolTipShadowSpread": 0,
+ "toolTipShadowBlurRadius": 3,
+ "toolTipBackgroundColor": "#F6F6F6",
+ "toolTipTextShadowColor": "#000000",
+ "paddingBottom": 0,
+ "toolTipFontColor": "#606060",
+ "paddingTop": 0,
+ "toolTipOpacity": 1,
+ "toolTipPaddingBottom": 4,
+ "transparencyActive": true,
+ "toolTipFontSize": 12,
+ "borderSize": 0,
+ "toolTipTextShadowBlurRadius": 3,
+ "toolTipShadowColor": "#333333",
+ "iconURL": "skin/IconButton_E92A07E1_F928_EDBA_41D1_EF20B01376B8.png",
+ "data": {
+  "name": "IconButton1493"
+ },
+ "shadow": false,
+ "toolTipFontWeight": "normal",
+ "cursor": "hand",
+ "toolTipPaddingRight": 6
 }],
  "backgroundPreloadEnabled": true,
  "paddingTop": 0,
@@ -564,6 +620,7 @@
   "openLink": function(url, name){  if(url == location.href) { return; } var isElectron = (window && window.process && window.process.versions && window.process.versions['electron']) || (navigator && navigator.userAgent && navigator.userAgent.indexOf('Electron') >= 0); if (name == '_blank' && isElectron) { if (url.startsWith('/')) { var r = window.location.href.split('/'); r.pop(); url = r.join('/') + url; } var extension = url.split('.').pop().toLowerCase(); if(extension != 'pdf' || url.startsWith('file://')) { var shell = window.require('electron').shell; shell.openExternal(url); } else { window.open(url, name); } } else if(isElectron && (name == '_top' || name == '_self')) { window.location = url; } else { var newWindow = window.open(url, name); newWindow.focus(); } },
   "updateMediaLabelFromPlayList": function(playList, htmlText, playListItemStopToDispose){  var changeFunction = function(){ var index = playList.get('selectedIndex'); if(index >= 0){ var beginFunction = function(){ playListItem.unbind('begin', beginFunction); setMediaLabel(index); }; var setMediaLabel = function(index){ var media = playListItem.get('media'); var text = media.get('data'); if(!text) text = media.get('label'); setHtml(text); }; var setHtml = function(text){ if(text !== undefined) { htmlText.set('html', '<div style=\"text-align:left\"><SPAN STYLE=\"color:#FFFFFF;font-size:12px;font-family:Verdana\"><span color=\"white\" font-family=\"Verdana\" font-size=\"12px\">' + text + '</SPAN></div>'); } else { htmlText.set('html', ''); } }; var playListItem = playList.get('items')[index]; if(htmlText.get('html')){ setHtml('Loading...'); playListItem.bind('begin', beginFunction); } else{ setMediaLabel(index); } } }; var disposeFunction = function(){ htmlText.set('html', undefined); playList.unbind('change', changeFunction, this); playListItemStopToDispose.unbind('stop', disposeFunction, this); }; if(playListItemStopToDispose){ playListItemStopToDispose.bind('stop', disposeFunction, this); } playList.bind('change', changeFunction, this); changeFunction(); }
  },
+ "buttonToggleFullscreen": "this.IconButton_E92A07E1_F928_EDBA_41D1_EF20B01376B8",
  "scrollBarColor": "#000000",
  "data": {
   "name": "Player805"
