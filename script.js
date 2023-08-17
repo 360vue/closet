@@ -31,7 +31,7 @@
  "viewerArea": "this.MainViewer",
  "gyroscopeVerticalDraggingEnabled": true,
  "id": "MainViewerPanoramaPlayer",
- "touchControlMode": "drag_acceleration",
+ "touchControlMode": "drag_rotation",
  "mouseControlMode": "drag_rotation"
 },
 {
@@ -335,7 +335,7 @@
   "class": "PanoramaCameraPosition",
   "pitch": 0
  },
- "manualRotationSpeed": 1099,
+ "manualRotationSpeed": 1662,
  "initialSequence": {
   "class": "PanoramaCameraSequence",
   "restartMovementOnUserInteraction": false,
